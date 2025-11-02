@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Conveyor Belt with Robot Arm</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .conveyor-container {
+      position: relative;
+      width: 800px;
+      height: 150px;
+      margin: 40px auto;
+      overflow: hidden;
+      border: 5px solid #555;
+      border-radius: 10px;
+      background: repeating-linear-gradient(
+        90deg,
+        #444,
+        #444 40px,
+        #333 40px,
+        #333 80px
+      );
+      animation: moveBelt 2s linear infinite;
+    }
+
+    @keyframes moveBelt {
+      from { background-position: 0 0; }
+      to   { background-position: 80px 0; }
+    }
+
+    .item {
+      position: absolute;
+      bottom: 40px;
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      text-align: center;
+      line-height: 60px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .robot-arm {
+      position: absolute;
+      top: -60px;
+      left: 350px;
+      width: 100px;
+      height: 100px;
+      background: #888;
+      border-radius: 50%;
+      z-index: 10;
+    }
+
+    .arm-gripper {
+      position: absolute;
+      top: 80px;
+      left: 35px;
+      width: 30px;
+      height: 70px;
+      background: #aaa;
+      border-radius: 5px;
+      transition: transform 0.5s;
+    }
+
+    .arm-gripper.down {
+      transform: translateY(30px);
+    }
+  </style>
+</head>
+<body>
+  <h1>Manufacturing Robotics: Conveyor with Robot Arm</h1>
+  <div class="conveyor-container" id="conveyor">
+    <div class="robot-arm">
+      <div class="arm-gripper" id="gripper"></div>
+    </div>
+  </div>
+
+  <script>
+    const conveyor = document.getElementById("conveyor");
+    const gripper = document.getElementById("gripper");
+
+    let itemCount = 0;
+
+    function createItem() {
+		const item = document.createElement("div");
+		item.className = "item";
+		item.style.background = randomColor();
+		item.textContent = "#";
+		item.style.left = "-80px";
+		conveyor.appendChild(item);
+
+		let pos = -80;
+		const speed = 0.7;
+		const armZone = 380; // where the robot arm is
+
+
+		function animate() {
+			pos += speed;
+			item.style.left = pos + "px";
+
+			if (pos >= armZone - 10 && pos <= armZone + 10 && item.style.background == "purple") {
+				grabItem(item);
+			} else if (pos <= 850) {
+				requestAnimationFrame(animate);
+			} else {
+				conveyor.removeChild(item);
+		}
+	}
+
+	requestAnimationFrame(animate);
+
+
+/*
+      const move = setInterval(() => {
+        pos += speed;
+        item.style.left = pos + "px";
+
+        if (pos >= armZone - 10 && pos <= armZone + 10 && item.style.background == "purple") {
+          clearInterval(move);
+          grabItem(item);
+        } else if (pos > 850) {
+          clearInterval(move);
+          conveyor.removeChild(item);
+        }
+      }, 30);*/
+
+      itemCount++;
+    }
+
+    function grabItem(item) {
+      gripper.classList.add("down");
+
+      setTimeout(() => {
+        item.style.transition = "all 0.25s ease";
+        item.style.bottom = "120px"; // lift up
+        item.style.opacity = "0";   // fade out
+      }, 250);
+
+      setTimeout(() => {
+        if (item.parentNode) conveyor.removeChild(item);
+        gripper.classList.remove("down");
+      }, 400);
+    }
+
+    function randomColor() {
+      //const colors = ["tomato", "steelblue", "seagreen", "goldenrod", "purple"];
+	  const colors = ["seagreen", "purple"];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    // spawn new items every 2 seconds
+    setInterval(createItem, 2000);
+
+    // start with one
+    createItem();
+  </script>
+</body>
+</html>

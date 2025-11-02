@@ -1,0 +1,44 @@
+@charset "utf-8";
+
+/*
+   ITC-245 Final Project
+   
+   Author:   Hailey Bishop & Katherine Couturier
+   Date:     10/13/25
+   
+   Filename: rm_navicon.css
+   
+   This file contains styles used to control 
+   a navicon menu used in 
+   the ITC245 Final Project Web page.
+
+*/
+/* ===========
+   Base Styles
+   ===========
+*/
+
+a#navicon {
+	display: none;
+}
+
+
+/* ===============================
+   Mobile Devices: 0 to 480px 
+   ===============================
+*/
+
+@media only screen and (max-width: 480px) {
+	
+	a#navicon {
+		display: block;
+	}
+	
+	nav.horizontal ul {
+		display: none;
+	}
+	
+	a#navicon:hover+ul, nav.horizontal ul:hover {
+		display: block;
+	}
+}

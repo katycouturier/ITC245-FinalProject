@@ -1,0 +1,68 @@
+@charset "utf-8";
+
+/*
+   ITC-245 Final Project
+   
+   Author:   Hailey Bishop & Katherine Couturier
+   Date:     10/13/25
+   
+   Filename: rm_flex1.css
+   
+   This file contains the flex styles used in the ITC245 Final Project Web page
+
+*/
+
+
+/* ================
+   Base Flex Styles
+   ================
+*/
+
+header, footer {
+	width: 100%
+}
+
+section#topics:nth-of-type(odd) {
+	display: flex;
+	flex-flow: row wrap;
+}
+
+section#topics:nth-of-type(even) {
+	display: flex;
+	flex-flow: row wrap;
+	flex-direction: row-reverse;
+}
+
+section#topics article {
+	flex: 1 1 250px;
+}
+
+section#topics:nth-of-type(odd) {
+	display: flex;
+	flex-flow: row wrap;
+}
+
+/* =========================
+   Mobile Styles: 0 to 480px 
+   =========================
+*/
+
+
+/* ============================================
+   Tablet and Desktop Styles: 481px and greater 
+   ============================================
+*/
+
+@media only screen and (min-width: 481px) {
+	
+	nav.horizontal ul {
+		display: flex;
+		flex-flow: row nowrap;
+	}
+
+	nav.horizontal li {
+		flex: 1 1 auto;
+	}
+}
+
+
