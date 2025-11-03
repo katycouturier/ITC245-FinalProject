@@ -3,7 +3,7 @@
 /*
    ITC-245 Final Project
    
-   Author:   Hailey Bishop & Katherine Couturier
+   Author:   Haley Bishop & Katherine Couturier
    Date:     10/13/25
    
    Filename: rm_flex1.css
@@ -64,5 +64,6 @@ section#topics:nth-of-type(odd) {
 		flex: 1 1 auto;
 	}
 }
+
 
 
