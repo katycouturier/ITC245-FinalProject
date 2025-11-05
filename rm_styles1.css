@@ -108,6 +108,23 @@ body header > img {
    width: 100%;
 }
 
+ /* Button Styles */
+
+.button-class {
+	background-color: #9900cc;
+	/* Green */
+	border: none;
+	color: white;
+	padding: 3%;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 20px;
+	cursor: pointer;
+	border-radius: 12px;
+}
+
 /* Horizonal Navigation Styles */
 
 nav.horizontal {
@@ -284,4 +301,5 @@ footer {
 footer a {
    color: rgb(100,146,255);
 }
+
 
