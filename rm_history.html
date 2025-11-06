@@ -12,103 +12,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>History of Robotics in Manufacturing</title>
-    <link href="rm_reset.css" rel="stylesheet" />
-    <link href="rm_styles1.css" rel="stylesheet" />
-    <link href="rm_flex1.css" rel="stylesheet" />
-    <link href="rm_navicon.css" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>History of Robotics in Manufacturing</title>
+<link href="rm_reset.css" rel="stylesheet" />
+<link href="rm_historystyles.css" rel="stylesheet" />
+<link href="rm_flex1.css" rel="stylesheet" />
+<link href="rm_navicon.css" rel="stylesheet" />
 </head>
 
 <body>
-    <header>
-        <nav class="horizontal">
-            <a id="navicon" href="#"><img src="rm_navicon.png" alt="Navigation Icon" /></a>
-            <ul>
-                <li><a href="rm_home.html">HOME</a></li>
-                <li><a href="rm_history.html">HISTORY</a></li>
-                <li><a href="rm_applications.html">APPLICATIONS</a></li>
-                <li><a href="rm_robots.html">ROBOTS</a></li>
-                <li><a href="rm_impacts.html">IMPACTS</a></li>
-                <li><a href="rm_simulation.html">SIMULATION</a></li>
-                <li><a href="rm_future.html">FUTURE</a></li>
-                <li><a href="rm_contact.html">CONTACT</a></li>
-            </ul>
-        </nav>
-    </header>
+<header>
+    <nav class="horizontal">
+        <a id="navicon" href="#">☰</a>
+        <ul>
+            <li><a href="rm_home.html">HOME</a></li>
+            <li><a href="rm_history.html">HISTORY</a></li>
+            <li><a href="rm_applications.html">APPLICATIONS</a></li>
+            <li><a href="rm_robots.html">ROBOTS</a></li>
+            <li><a href="rm_impacts.html">IMPACTS</a></li>
+            <li><a href="rm_simulation.html">SIMULATION</a></li>
+            <li><a href="rm_future.html">FUTURE</a></li>
+            <li><a href="rm_contact.html">CONTACT</a></li>
+        </ul>
+    </nav>
+</header>
 
-    <section id="main">
-        <h1>History of Robots in Manufacturing</h1>
-        <div id="history-content">
-            <!-- History entries will be loaded here -->
-        </div>
-    </section>
+<section id="main">
+    <h1>History of Robots in Manufacturing</h1>
+    <div id="history-content">
+        <!-- Timeline items populated by JS -->
+    </div>
+</section>
 
-    <footer>
-        <p>&copy; 2025 Robotics in Manufacturing</p>
-    </footer>
+<footer>
+    <p>&copy; 2025 Robotics in Manufacturing</p>
+</footer>
 
-    <script>
-        async function fetchHistory() {
-            try {
-                const response = await fetch('fetch_history.php'); // Fetch data from PHP script
-                const data = await response.json(); // Parse JSON response
+<script>
+const navicon = document.getElementById('navicon');
+const navMenu = document.querySelector('nav.horizontal ul');
+navicon?.addEventListener('click', () => navMenu.classList.toggle('active'));
 
-                const historyContent = document.getElementById('history-content');
+async function fetchHistory() {
+    try {
+        const response = await fetch('fetch_history.php');
+        const data = await response.json();
+        const container = document.getElementById('history-content');
+        if (!data.length) { container.innerHTML = '<p>No data found.</p>'; return; }
 
-                // Check if data is returned
-                if (data.length === 0) {
-                    historyContent.innerHTML = '<p>No data found.</p>';
-                    return;
-                }
+        data.forEach((item, i) => {
+            const article = document.createElement('article');
+            article.classList.add('timeline-item', i % 2 === 0 ? 'left' : 'right');
+            article.style.animationDelay = `${i*0.2}s`;
+            article.innerHTML = `
+                <h2>${item.robot_name} (${item.year_introduced})</h2>
+                <h3>Manufacturer: ${item.manufacturer}</h3>
+                <p>${item.description}</p>
+            `;
+            container.appendChild(article);
+        });
+    } catch(err) {
+        console.error('Error fetching history:', err);
+        document.getElementById('history-content').innerHTML = '<p>Error loading data.</p>';
+    }
+}
 
-                // Loop through data and create HTML elements
-                data.forEach(item => {
-                    const article = document.createElement('article');
-                    article.innerHTML = `
-                        <h2>${item.robot_name} (${item.year_introduced})</h2>
-                        <h3>Manufacturer: ${item.manufacturer}</h3>
-                        <p>${item.description}</p>
-                    `;
-                    historyContent.appendChild(article);
-                });
-            } catch (error) {
-                console.error('Error fetching history data:', error);
-                document.getElementById('history-content').innerHTML = '<p>Error loading data.</p>';
-            }
-        }
-
-        window.onload = fetchHistory; // Call fetchHistory on page load
-    </script>
+window.onload = fetchHistory;
+</script>
 </body>
 </html>
-
-/* I could not get the style sheet to pull from this at all, so I added this in here so that we could see the information correctly. */
-<style>
-    #history-content {
-        color: white;
-    }
-
-    #history-content h2 {
-        color: rgb(61,117,240);
-    }
-
-    #history-content h3 {
-        color: #8ab4f8;
-    }
-
-    #history-content p {
-        color: #f0f0f0;
-    }
-
-    #history-content article {
-        background: rgba(0, 0, 0, 0.6);
-        border: 1px solid rgb(61,117,240);
-        border-radius: 10px;
-        padding: 15px;
-        margin: 15px auto;
-        max-width: 800px;
-        box-shadow: 0px 0px 10px rgb(61,117,240);
-    }
-</style>
