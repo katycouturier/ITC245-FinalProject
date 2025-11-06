@@ -1,0 +1,200 @@
+/*
+   ITC-245 Final Project
+   
+   Author:   Haley Bishop & Katherine Couturier
+   Date:     11/06/25
+   
+   Filename: rm_styles1.css
+   
+   This file contains the typographical and layout styles used in 
+   the ITC245 Final Project Web page.
+
+*/
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robotics Applications</title>
+<link href="rm_reset.css" rel="stylesheet" />
+<link href="rm_styles1.css" rel="stylesheet" />
+<link href="rm_flex1.css" rel="stylesheet" />
+<link href="rm_navicon.css" rel="stylesheet" />
+
+<style>
+    body {
+        background-color: black;
+        color: white;
+        font-family: Verdana, Geneva, sans-serif;
+        line-height: 1.6;
+        margin: 10;
+    }
+
+    section#main {
+        padding: 40px 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    section#main h1 {
+        text-align: center;
+        font-size: 2.4em;
+        color: rgb(61,117,240);
+        text-shadow: 0 0 15px rgba(61,117,240,0.6);
+        margin-bottom: 40px;
+    }
+
+    .text-block {
+        background: rgba(20,20,20,0.8);
+        padding: 25px 30px;
+        margin-bottom: 25px;
+        border-left: 5px solid rgb(61,117,240);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(61,117,240,0.3);
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s forwards;
+    }
+
+    .text-block:nth-child(even) {
+        background: rgba(35,35,35,0.8);
+        border-left-color: rgb(100,146,255);
+    }
+
+    .text-block h2 {
+        color: rgb(100,146,255);
+        margin-bottom: 15px;
+        text-shadow: 0 0 10px rgba(100,146,255,0.5);
+    }
+
+    .text-block p {
+        color: #e0e0e0;
+        font-size: 1.15em;
+    }
+
+    .text-block ul {
+        list-style-type: square;
+        padding-left: 25px;
+        color: #cce0ff;
+    }
+
+    .text-block ul li {
+        margin-bottom: 10px;
+        font-size: 1.15em;
+    }
+
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .video-container {
+        position: relative;
+        width: 90%;
+        max-width: 900px;
+        margin: 40px auto;
+        padding-bottom: 56.25%; /* 16:9 ratio */
+        height: 0;
+        overflow: hidden;
+        border-radius: 15px;
+        box-shadow: 0 0 25px rgb(61,117,240);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .video-container:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 40px rgb(61,117,240);
+    }
+
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    footer {
+        color: white;
+        background-color: black;
+        text-align: center;
+        padding: 15px 0;
+        margin-top: 40px;
+        font-size: 1em;
+    }
+
+    footer a {
+        color: rgb(100,146,255);
+        text-decoration: none;
+    }
+
+</style>
+</head>
+
+<body>
+<header>
+    <nav class="horizontal">
+        <a id="navicon" href="#"><img src="rm_navicon.png" alt="Navigation Icon" /></a>
+        <ul>
+            <li><a href="rm_home.html">HOME</a></li>
+            <li><a href="rm_history.html">HISTORY</a></li>
+            <li><a href="rm_applications.html">APPLICATIONS</a></li>
+            <li><a href="rm_robots.html">ROBOTS</a></li>
+            <li><a href="rm_impacts.html">IMPACTS</a></li>
+            <li><a href="rm_simulation.html">SIMULATION</a></li>
+            <li><a href="rm_future.html">FUTURE</a></li>
+            <li><a href="rm_contact.html">CONTACT</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section id="main">
+    <h1>Applications of Robotics in Modern Manufacturing</h1>
+
+    <div class="text-block" style="animation-delay: 0s;">
+        <h2>Revolutionizing Production</h2>
+        <p>
+            Robotics has redefined manufacturing by combining speed, precision, and safety. Robots can take on
+            repetitive or dangerous tasks, allowing human workers to focus on innovation, quality control, and
+            creative problem-solving. Their adoption spans automotive, electronics, aerospace, pharmaceuticals,
+            and even food production.
+        </p>
+    </div>
+
+    <div class="text-block" style="animation-delay: 0.2s;">
+        <h2>Key Applications</h2>
+        <ul>
+            <li><strong>Automated Assembly & Welding:</strong> High-precision tasks executed faster and more consistently than manual labor.</li>
+            <li><strong>Material Handling & Packaging:</strong> Efficient movement, sorting, and packaging with reduced risk for workers.</li>
+            <li><strong>Quality Control & Inspection:</strong> Sensors and cameras detect defects accurately, ensuring high-quality output.</li>
+            <li><strong>Collaborative Robots (Cobots):</strong> Work safely alongside humans to enhance flexibility and productivity.</li>
+            <li><strong>Maintenance & Logistics:</strong> Monitor machinery, transport materials, and maintain consistent production flow.</li>
+        </ul>
+    </div>
+
+    <div class="text-block" style="animation-delay: 0.4s;">
+        <h2>Benefits of Integration</h2>
+        <p>
+            Beyond efficiency, robotics improves product quality, reduces waste, and accelerates innovation. Companies
+            adopting robotics gain a competitive advantage by streamlining operations while maintaining workplace safety.
+        </p>
+    </div>
+
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/8gy6ZvIDtbU" 
+                title="Robotics Applications Video" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+        </iframe>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2025 Robotics in Manufacturing</p>
+</footer>
+</body>
+</html>
