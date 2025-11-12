@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--ITC245 Project
+	Robotics in Manufacturing Website Template
+	Author: Hailey Bishop & Katherine Couturier
+	Date:	10/12/25	
+	Filename:	rm_simulation.html
+	-->
+   <meta charset="UTF-8">
+   <title>Robotics in Manufacturing</title>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1" />  
+   <link href="rm_reset.css" rel="stylesheet" />
+   <link href="rm_styles1.css" rel="stylesheet" />
+   <link href="rm_flex1.css" rel="stylesheet" />
+   <link href="rm_navicon.css" rel="stylesheet" />
+   <link href="rm_robot_style2.css" rel="stylesheet" />
+   <script src="robot2.js" defer></script>
+</head>
+
+<body>
+   <header>
+      <nav class="horizontal">
+		 <a id="navicon" href="#"><img src="da_navicon.png" alt="" /></a>
+         <ul>
+			<li><a href="rm_home.html">HOME</a></li>
+			<li><a href="rm_history.html">HISTORY</a></li>
+			<li><a href="rm_applications.html">APPLICATIONS</a></li>
+			<li><a href="rm_robots.html">ROBOTS</a></li>
+			<li><a href="rm_impacts.html">IMPACTS</a></li>
+			<li><a href="rm_simulation.html">SIMULATION</a></li>
+			<li><a href="rm_future.html">FUTURE</a></li>
+			<li><a href="rm_contact.html">CONTACT</a></li>  
+         </ul>
+      </nav>
+   </header>
+
+  
+   
+   
+
+     <h1>Simulation  Game</h1>
+
+	<div id="instructions"  >
+	  <h2>How to Play:</h2>
+	  UH OH!! The painter system is malfunctioning and some components are being painted purple! Fortunately a newly installed robotic arm can automatically pull these scrap items from Line A to prevent them from going to shipping.<br>
+	  <br>
+	  However we need your help on Line B to <strong>pull the purple components</strong> into the scrap containment area.
+	  If you <strong>accidentally click a green box</strong> or a purple component is allowed to go to shipping, the game ends.
+	  Warning...As the scrap numbers increase, the conveyors may speed up to make up for the lost products.<br>
+	  <h2>See if you can keep up with the robot!</h2>
+	</div>
+	
+	<div id="controls">
+		<button id="startBtn">Start Game</button>
+		<button id="stopBtn">Stop</button>
+		<button id="resetBtn">Reset</button>
+		<div id="scoreboard">Score: 0</div>
+	</div>
+
+	<div id="game">
+		<div id="gripper"></div>
+		<div id="top-conveyor" class="conveyor"></div>
+		<div id="bottom-conveyor" class="conveyor"></div>
+		<div id="pull-line">⬇ pull purple boxes into the containment area ⬇</div>
+	</div>  
+   
+	<footer></footer>
+</body>
+</html>
