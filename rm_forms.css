@@ -1,0 +1,79 @@
+/*
+   ITC-245 Final Project
+   
+   Author:   Haley Bishop & Katherine Couturier
+   Date:     11/11/25
+   
+   Filename: rm_forms.css
+   
+   ITC 245 Final Project forms stylesheet.
+
+*/
+
+/* Form Layout Styles */
+form#survey {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+form#survey > fieldset {
+	background-color: white;
+	border-radius: 5px;
+	font-size: 1em;
+	padding: 109x;
+	margin: 10px;
+}
+
+div.formRow {
+	display: flex;
+	flex-flow: row wrap;
+	margin: 7px 0px;
+}
+
+div.formRow > * {
+	flex: 1 1 150px;
+}
+/* Legend Styles */
+
+legend {
+	background-color: black;
+	color: white;
+	padding: 10px;
+}
+
+/* Text Area Styles */
+textarea {
+	margin-top: 10px;
+	height: 100px;
+	width: 95%
+}
+
+/* Form Button Styles */
+div#buttons {
+	text-align: center;
+	width: 100%;
+}
+
+input[type='submit'], input[type='reset'] {
+	font-size: 1.5em;
+	padding: 5px;
+	margin: 15px;
+}
+
+
+/* Validation Styles */
+
+input:focus, select:focus, textarea:focus {
+	background-color: rgb(220,255,220);
+}
+
+input#name:focus:valid,
+input#mail:focus:valid {
+	background: rgb(220, 255, 220);
+}
+
+input#name:focus:invalid,
+input#mail:focus:invalid {
+	background: rgb(255, 232, 233);
+}
