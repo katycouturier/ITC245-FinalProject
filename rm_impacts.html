@@ -36,21 +36,77 @@
 	  <!-- <img src="rm_banner.png" alt="Robotics in Manufacturing" /> -->
 	  
    </header>
-
   
    
-   <section id="main">
+   <h1>Impacts to Manufacturing</h1>
+	<article>
+		
+		<img class="impacts" src="rm_impacts.png" alt="Impacts" usemap="#impacts_map" />
+		<map name="impacts_map">
+			<area target="" alt="productivity" title="productivity" href="#" coords="453,534,126,210" shape="rect" 
+				onclick="showImpact('productivity'); return false;">
+			<area target="" alt="safety" title="safety" href="#" coords="411,983,58,590" shape="rect"
+				onclick="showImpact('safety'); return false;">
+			<area target="" alt="quality" title="quality" href="#" coords="704,837,472,478" shape="rect"
+				onclick="showImpact('quality'); return false;">
+			<area target="" alt="cost" title="cost" href="#" coords="823,203,1085,586" shape="rect"
+				onclick="showImpact('cost'); return false;">
+			<area target="" alt="downtime" title="downtime" href="#" coords="835,617,1126,953" shape="rect"
+				onclick="showImpact('downtime'); return false;">
+			<area target="" alt="skills" title="skills" href="#" coords="1481,766,1164,365" shape="rect"
+				onclick="showImpact('skills'); return false;">
+		</map>
+			
+			
+			
+		<div id="impact_text">
+			<p id="productivity" class="impact hide">
+				Robots improve productivity by performing tasks faster and without fatigue.
+			</p>
 
-     <h1>Impacts</h1>
-	 
+			<p id="safety" class="impact hide">
+				Robots reduce human exposure to dangerous tasks and environments.
+			</p>
 
-      
-   </section>
-   
+			<p id="quality" class="impact hide">
+				Precision robotics improve consistency and reduce defects in manufacturing.
+			</p>
+
+			<p id="cost" class="impact hide">
+				Automation reduces waste and long-term production costs by improving efficiency.
+			</p>
+
+			<p id="downtime" class="impact hide">
+				Robots minimize downtime by working continuously and requiring predictable maintenance.
+			</p>
+
+			<p id="skills" class="impact hide">
+				Robotics increases the need for skilled technicians in programming and maintenance.
+			</p>
+		</div>
+
+	</article> 
    <footer>
       <p>&copy; 2025 Robotics in Manufacturing</p>
    </footer>
 </body>
 </html>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/image-map-resizer/1.0.10/js/imageMapResizer.min.js"></script>
+
+<script>
+window.onload = function() {
+        imageMapResize();
+    };
+
+function showImpact(id) {
+    // hide all impact text
+    document.querySelectorAll('.impact').forEach(p => p.classList.add('hide'));
+
+    // show selected text
+    document.getElementById(id).classList.remove('hide');
+}
+</script>
 
 
