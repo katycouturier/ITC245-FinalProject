@@ -47,6 +47,7 @@ body h1 {
 	text-align: center; 
 	line-height: 1.0em;
 	padding: 3%;
+	color: white;
 }
 
 body h2 {
@@ -302,4 +303,24 @@ footer a {
    color: rgb(100,146,255);
 }
 
+/* IMAGE MAP STYLES  */
+.impacts {
+    max-width: 90%;
+	height: auto;
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+#impact_text p {
+    margin: auto;
+    padding: 30px;
+	color: white;
+    background: black;
+    border-left: 4px solid #333;
+    font-size: 2em;
+	line-height: 1.25em;
+}
 
