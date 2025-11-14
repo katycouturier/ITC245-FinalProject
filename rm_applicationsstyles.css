@@ -90,6 +90,7 @@
         border-radius: 15px;
         box-shadow: 0 0 25px rgb(61,117,240);
         transition: transform 0.3s, box-shadow 0.3s;
+        display: block;
     }
 
     .video-container:hover {
