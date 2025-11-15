@@ -20,13 +20,13 @@ body {
 	background-color: black;
 }
 
-.carousel {
-	margin: 30px 0;
+#myCarousel {
+    margin: 30px 0;
+    position: relative;
     background-image: url("carousel-background.png");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    background-attachment: fixed; /* optional */
 }
 
 
@@ -104,6 +104,7 @@ body {
 	font-size: 110%;
 	text-transform: uppercase;
 }
+
 
 
 
