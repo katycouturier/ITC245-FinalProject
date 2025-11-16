@@ -48,7 +48,7 @@ section#topics:nth-of-type(odd) {
 */
 @media only screen and (max-width: 480px) {
     h1 {
-        font-size: 2.0em;   
+        font-size: 1.6em;   
         text-align: center; 
     }
 }
@@ -80,3 +80,4 @@ section#topics:nth-of-type(odd) {
         padding: 8px;      
     }
 }
+
