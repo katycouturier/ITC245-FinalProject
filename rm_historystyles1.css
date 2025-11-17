@@ -6,105 +6,12 @@
    Author:   Haley Bishop & Katherine Couturier
    Date:     11/06/25
    
-   Filename: rm_historystyles.css
+   Filename: rm_historystyles1.css
    
    This file contains the typographical and layout styles used in 
    the ITC245 Final Project Web page.
    */
 
-
-body {
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    background: linear-gradient(180deg, #0a0a0a 0%, #111111 100%);
-    color: #e0e0e0;
-    overflow-x: hidden;
-}
-
-/* ===== Header & Navigation ===== */
-header nav.horizontal {
-    width: 100%;
-    background-color: #0a0a0a;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 0;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-}
-
-nav.horizontal ul {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    justify-content: center;
-}
-
-nav.horizontal ul li {
-    margin: 0 20px;
-}
-
-nav.horizontal ul li a {
-    color: #3d75f0;
-    text-decoration: none;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    font-size: 1em;
-}
-
-nav.horizontal ul li a:hover {
-    color: #61a0ff;
-    text-shadow: 0 0 8px #61a0ff;
-}
-
-/* Hamburger icon for mobile */
-#navicon {
-    display: none;
-}
-
-@media screen and (max-width: 768px) {
-    nav.horizontal ul {
-        flex-direction: column;
-        display: none;
-        background-color: #0a0a0a;
-        width: 100%;
-        position: absolute;
-        top: 60px;
-        left: 0;
-    }
-    nav.horizontal ul.active {
-        display: flex;
-    }
-    #navicon {
-        display: block;
-        position: absolute;
-        right: 20px;
-        top: 15px;
-        cursor: pointer;
-        font-size: 1.5em;
-        color: #3d75f0;
-    }
-}
-
-/* ===== Main Section ===== */
-section#main {
-    max-width: 1200px;
-    margin: 120px auto 60px auto;
-    padding: 20px;
-}
-
-section#main h1 {
-    text-align: center;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 3em;
-    color: #3d75f0;
-    text-shadow: 0 0 20px rgba(61,117,240,0.7);
-    margin-bottom: 80px;
-}
 
 /* ===== Timeline Container ===== */
 #history-content {
@@ -113,6 +20,7 @@ section#main h1 {
     padding: 20px 0;
 }
 
+/* Center spine */
 #history-content::before {
     content: '';
     position: absolute;
@@ -122,16 +30,17 @@ section#main h1 {
     width: 4px;
     background: #3d75f0;
     transform: translateX(-50%);
+    border-radius: 2px;
 }
 
 /* ===== Timeline Items ===== */
 .timeline-item {
     position: relative;
-    width: 45%;
+    width: 42%; /* slightly smaller to prevent overflow */
     background: rgba(20,20,20,0.85);
-    padding: 25px 30px;
+    padding: 25px 25px;
     border-radius: 15px;
-    margin: 40px 0;
+    margin: 20px 0;
     opacity: 0;
     transform: translateY(40px);
     animation: fadeInUp 1s forwards;
@@ -146,8 +55,14 @@ section#main h1 {
 }
 
 /* Alternate sides */
-.timeline-item.left { left: 0; }
-.timeline-item.right { left: 55%; }
+.timeline-item.left {
+    left: 0;
+    transform: translateX(-5%); /* nudge closer to spine */
+}
+.timeline-item.right {
+    left: 50%;
+    transform: translateX(5%); /* nudge closer to spine */
+}
 
 /* Timeline markers */
 .timeline-item::before {
@@ -162,8 +77,8 @@ section#main h1 {
     box-shadow: 0 0 15px #3d75f0;
 }
 
-.timeline-item.left::before { right: -50px; }
-.timeline-item.right::before { left: -50px; }
+.timeline-item.left::before { right: -11px; } /* aligns with spine */
+.timeline-item.right::before { left: -11px; }
 
 /* Timeline text */
 .timeline-item h2 {
@@ -210,7 +125,8 @@ footer a { color: #61a0ff; text-decoration: none; }
     .timeline-item.left {
         width: 90%;
         left: 5% !important;
+        transform: translateX(0) !important; /* remove nudging on small screens */
     }
     #history-content::before { left: 5%; }
-    .timeline-item::before { left: -40px !important; }
+    .timeline-item::before { left: -40px !important; right: auto !important; }
 }
