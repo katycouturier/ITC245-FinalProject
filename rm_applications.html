@@ -14,19 +14,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Robotics Applications</title>
+<title>History of Robotics in Manufacturing</title>
 <link href="rm_reset.css" rel="stylesheet" />
 <link href="rm_historystyles.css" rel="stylesheet" />
+<link href="rm_styles1.css" rel="stylesheet" />
 <link href="rm_flex1.css" rel="stylesheet" />
 <link href="rm_navicon.css" rel="stylesheet" />
-<link href="rm_applicationsstyles.css" rel="stylesheet" />
 
 </head>
 
 <body>
 <header>
     <nav class="horizontal">
-        <a id="navicon" href="#"><img src="rm_navicon.png" alt="Navigation Icon" /></a>
+        <a id="navicon" href="#">☰</a>
         <ul>
             <li><a href="index.html">HOME</a></li>
             <li><a href="rm_history.html">HISTORY</a></li>
@@ -40,48 +40,54 @@
 </header>
 
 <section id="main">
-    <h1>Applications of Robotics in Modern Manufacturing</h1>
-
-    <div class="text-block" style="animation-delay: 0s;">
-        <h2>Revolutionizing Production</h2>
-        <p>
-            Robotics has redefined manufacturing by combining speed, precision, and safety. Robots can take on
-            repetitive or dangerous tasks, allowing human workers to focus on innovation, quality control, and
-            creative problem-solving. Their adoption spans automotive, electronics, aerospace, pharmaceuticals,
-            and even food production.
-        </p>
-    </div>
-
-    <div class="text-block" style="animation-delay: 0.2s;">
-        <h2>Key Applications</h2>
-        <ul>
-            <li><strong>Automated Assembly & Welding:</strong> High-precision tasks executed faster and more consistently than manual labor.</li>
-            <li><strong>Material Handling & Packaging:</strong> Efficient movement, sorting, and packaging with reduced risk for workers.</li>
-            <li><strong>Quality Control & Inspection:</strong> Sensors and cameras detect defects accurately, ensuring high-quality output.</li>
-            <li><strong>Collaborative Robots (Cobots):</strong> Work safely alongside humans to enhance flexibility and productivity.</li>
-            <li><strong>Maintenance & Logistics:</strong> Monitor machinery, transport materials, and maintain consistent production flow.</li>
-        </ul>
-    </div>
-
-    <div class="text-block" style="animation-delay: 0.4s;">
-        <h2>Benefits of Integration</h2>
-        <p>
-            Beyond efficiency, robotics improves product quality, reduces waste, and accelerates innovation. Companies
-            adopting robotics gain a competitive advantage by streamlining operations while maintaining workplace safety.
-        </p>
-    </div>
-
-    <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/8gy6ZvIDtbU" 
-                title="Robotics Applications Video" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-        </iframe>
+    <h1>History of Robots in Manufacturing</h1>
+    <div id="history-content">
+        <!-- Timeline items populated by JS -->
     </div>
 </section>
 
 <footer>
     <p>&copy; 2025 Robotics in Manufacturing</p>
 </footer>
+
+<script>
+const navicon = document.getElementById('navicon');
+const navMenu = document.querySelector('nav.horizontal ul');
+navicon?.addEventListener('click', () => navMenu.classList.toggle('active'));
+
+async function fetchHistory() {
+    try {
+        const response = await fetch('fetch_history.php');
+        const data = await response.json();
+        const container = document.getElementById('history-content');
+        if (!data.length) { container.innerHTML = '<p>No data found.</p>'; return; }
+
+        data.forEach((item, i) => {
+            const article = document.createElement('article');
+            article.classList.add('timeline-item', i % 2 === 0 ? 'left' : 'right');
+            article.style.animationDelay = `${i*0.2}s`;
+            article.innerHTML = `
+        <h2>${item.robot_name} (${item.year_introduced})</h2>
+        <h3>Manufacturer: ${item.manufacturer}</h3>
+        <p>${item.description}</p>
+        ${item.link ? `<p><a href="${item.link}" target="_blank">More info</a></p>` : ''}
+    `;
+
+    container.appendChild(article);
+});
+    } catch(err) {
+        console.error('Error fetching history:', err);
+        document.getElementById('history-content').innerHTML = '<p>Error loading data.</p>';
+    }
+}
+
+window.onload = fetchHistory;
+</script>
+
+<footer>
+    <p>&copy; 2025 Robotics in Manufacturing</p>
+</footer>
+
+
 </body>
 </html>
