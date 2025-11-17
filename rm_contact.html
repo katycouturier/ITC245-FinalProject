@@ -5,7 +5,7 @@
 	Robotics in Manufacturing Website Template
 	Author: Hailey Bishop & Katherine Couturier
 	Date:	10/12/25	
-	Filename:	rm_template.html
+	Filename:	rm_contact.html
 	-->
    
    <title>Robotics in Manufacturing</title>
@@ -31,9 +31,7 @@
 			<li><a href="rm_simulation.html">SIMULATION</a></li>
 			<li><a href="rm_contact.html">CONTACT</a></li>
          </ul>
-      </nav>
-	  
-	  <!-- <img src="rm_banner.png" alt="Robotics in Manufacturing" /> -->
+	  </nav>
 	  
    </header>
 
@@ -41,7 +39,7 @@
 	<section id="main">
 		<h1>Questions or Comments?</h1>
 		
-		<form id="survey" action="#" method="post">
+		<form id="survey" action="submit_form.php" method="post">
 			<fieldset id="custInfo">
 				<legend>Contact Information</legend>
 				<div class="formRow">
@@ -74,7 +72,6 @@
 						<option value="History">
 						<option value="Impacts">
 						<option value="Simulation">
-						<option value="Future">
 					</datalist>
 				</div>   
 				<div class="formRow">
@@ -85,7 +82,7 @@
 				<label for="newsletterCB">Add me to your newletter!</label>
 			</fieldset>
 			<div id="buttons">
-				<input type="submit" value="Sumbit" />
+				<input type="submit" value="Submit" />
 				<input type="reset" value="Cancel" />
 			</div>
 		</form>
