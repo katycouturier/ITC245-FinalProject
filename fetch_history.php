@@ -1,16 +1,3 @@
-/*
-   ITC-245 Final Project
-   
-   Author:   Haley Bishop & Katherine Couturier
-   Date:     11/06/25
-   
-   Filename: rm_styles1.css
-   
-   This file contains the typographical and layout styles used in 
-   the ITC245 Final Project Web page.
-
-*/
-
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -27,7 +14,7 @@ if ($conn->connect_error) {
     die(json_encode(['error' => 'Database connection failed: ' . $conn->connect_error]));
 }
 
-$sql = "SELECT robot_name, year_introduced, manufacturer, description FROM robot_history";
+$sql = "SELECT robot_name, year_introduced, manufacturer, description, link FROM robot_history";
 $result = $conn->query($sql);
 
 $data = [];
