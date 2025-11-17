@@ -6,14 +6,17 @@
 
    Filename:   rm_robot.js  
 
+	*Created using ChatGPT
+
    Function List:
    functionname(parameter)
       Creates ...
 	
 */
 
-
+// wait until page is loaded
 window.onload = function() {
+	// references to page elements
     const topConveyor = document.getElementById("top-conveyor");
     const bottomConveyor = document.getElementById("bottom-conveyor");
     const gripper = document.getElementById("gripper");
@@ -23,41 +26,48 @@ window.onload = function() {
     const resetBtn = document.getElementById("resetBtn");
     const pullLine = document.getElementById("pull-line");
 
-    let topSpeed = 2;
-    let bottomSpeed = 2;
-    let gameOver = false;
-    let score = 0;	
-    let topInterval, bottomInterval;
-    let draggingItem = null;
-    let dragOffsetX = 0, dragOffsetY = 0;
-    let topScroll = 0, bottomScroll = 0;
+	// declare variables
+    var topSpeed = 2;		// start speed of top conveyor
+    var bottomSpeed = 2;	// start speed of bottom conveyor
+    var gameOver = false;	// game status
+    var score = 0;			// number of items removed
+    var topInterval, bottomInterval;
+    var draggingItem = null;
+    var dragOffsetX = 0, dragOffsetY = 0;
+    var topScroll = 0, bottomScroll = 0;
 
+	// generate random color for item  (green = good, purple = scrap)
     function randomColor() {
         const colors = ["seagreen", "purple"];
         return colors[Math.floor(Math.random() * colors.length)];
     }
 
-    // === MOVE BOTH CONVEYORS IN SYNC WITH ITEM SPEED ===
+    // move conveyors at same speed as items
 	function animateConveyors() {
+		// stop if game over
 		if (gameOver) return;
-		// Scroll same direction, same rate as boxes
+		// scroll belt background
 		topScroll += topSpeed;
 		bottomScroll += bottomSpeed;
 
-		// Use modulo to keep the pattern looping cleanly
+		// Use modulo to loop the pattern
 		topScroll %= 40;     
 		bottomScroll %= 40;
 
+		// assign new positions
 		topConveyor.style.backgroundPosition = `${topScroll}px 0`;
 		bottomConveyor.style.backgroundPosition = `${bottomScroll}px 0`;
 
+		// calls function repeatedly
 		requestAnimationFrame(animateConveyors);
 	}
 
-    // === TOP CONVEYOR ===
+    // create top conveyor item
 	function createTopItem() {
+		// stop if game over
 		if (gameOver) return;
 
+		// creates a new item
 		const item = document.createElement("div");
 		item.className = "item top-item";
 		item.dataset.belt = "top";
@@ -66,23 +76,30 @@ window.onload = function() {
 		item.style.left = "-60px";
 		topConveyor.appendChild(item);
 
-		let pos = -60;
+		// position of item
+		var pos = -60;
+		// location of arm zone
 		const armZone = 380;
-		let animFrameId;
+		
+		var animFrameId;
 
+		// item moves by topSpeed distance with every frame
 		function animate() {
+			// stop if game over
 			if (gameOver) return;
+			// calculates new position
 			pos += topSpeed;
+			// assigns new position
 			item.style.left = pos + "px";
 
-			// Check arm grab
+			// if purple item enters arm zone, grab item and stop animation
 			if (pos >= armZone - 10 && pos <= armZone + 10 && item.style.background === "purple") {
 				grabItem(item);
 				cancelAnimationFrame(animFrameId);
 				return;
 			}
 
-			// End condition (only if still in top conveyor)
+			// if a purple item reaches the end of the belt, the game is over
 			if (item.dataset.belt === "top" &&
 				item.parentNode === topConveyor &&
 				pos > topConveyor.offsetWidth - 50) {
@@ -95,14 +112,18 @@ window.onload = function() {
 				return;
 			}
 
+			// loop to animate box
 			animFrameId = requestAnimationFrame(animate);
+			// store animFrameId 
 			item.animFrameId = animFrameId;
 		}
-
+		// loop to animate box
 		animFrameId = requestAnimationFrame(animate);
+		// store animFrameId 
 		item.animFrameId = animFrameId;
 	}
 
+	// function to control robot arm
     function grabItem(item) {
 		// Start with the arm moving UP to grab the box
 		gripper.classList.add("up");
@@ -128,7 +149,7 @@ window.onload = function() {
 			gripper.classList.remove("up");
 			gripper.classList.add("down");
 
-			// Smooth reset to resting (down) position
+			// Reset to down position
 			setTimeout(() => {
 				gripper.classList.remove("down");
 			}, 350);
@@ -136,10 +157,12 @@ window.onload = function() {
 	}
 
 
-    // === BOTTOM CONVEYOR ===
+    // crate item on bottom conveyor
     function createBottomItem() {
+		// stop if game over
 		if (gameOver) return;
-
+		
+		// create item
 		const item = document.createElement("div");
 		item.className = "item bottom-item";
 		item.dataset.belt = "bottom";
@@ -148,7 +171,7 @@ window.onload = function() {
 		item.style.left = "-60px";
 		bottomConveyor.appendChild(item);
 
-		// Enable drag for purple boxes
+		// Enable drag for purple item
 		if (item.style.background === "purple") {
 			item.addEventListener("mousedown", (e) => {
 				e.preventDefault();
@@ -156,17 +179,20 @@ window.onload = function() {
 			});
 		}
 
-		// Green click = game over
+		// if a green item is clicked, the game is over
 		item.addEventListener("click", () => {
 			if (!gameOver && item.style.background === "seagreen") {
 				endGame("You clicked a green box!");
 			}
 		});
 
-		let pos = -60;
-		let animFrameId;
+		// initialize position
+		var pos = -60;
+		var animFrameId;
 
+		// item moves by bottomSpeed distance with every frame
 		function animate() {
+			// stop if game over
 			if (gameOver) return;
 
 			// Only move if still inside bottom conveyor and not being dragged
@@ -181,7 +207,7 @@ window.onload = function() {
 				return;
 			}
 
-			// Escape condition (only if still on correct belt)
+			// ends game if purple item escapes the bottom conveyor
 			if (item.dataset.belt === "bottom" &&
 				item.parentNode === bottomConveyor &&
 				pos > bottomConveyor.offsetWidth - 50 &&
@@ -196,22 +222,28 @@ window.onload = function() {
 				return;
 			}
 
+			// loop to animate box
 			animFrameId = requestAnimationFrame(animate);
+			// store animFrameId 
 			item.animFrameId = animFrameId;
 		}
-
+		// loop to animate box
 		animFrameId = requestAnimationFrame(animate);
+		// store animFrameId 
 		item.animFrameId = animFrameId;
 	}
 
-    // === DRAG HELPERS ===
+    // function to control items being dragged
 	function startDrag(item, startEvent) {
+		// stop if game over
 		if (gameOver) return;
-
+		
+		// identify dragged item
 		draggingItem = item;
 		item.dataset.dragging = "1";
 		item.classList.add("dragging");
 
+		// Calculate where inside the item the user clicked,
 		const rect = item.getBoundingClientRect();
 		dragOffsetX = startEvent.clientX - rect.left;
 		dragOffsetY = startEvent.clientY - rect.top;
@@ -224,38 +256,46 @@ window.onload = function() {
 		const gameRect = game.getBoundingClientRect();
 		game.appendChild(item);
 
+		// update coordinates in game layer
 		item.style.position = "absolute";
 		item.style.left = rect.left - gameRect.left + "px";
 		item.style.top = rect.top - gameRect.top + "px";
 
+		// highlight drop zone
 		pullLine.classList.add("active");
 	}
 
 	function updateDrag(e) {
+		// stop if nothing is being dragged
 		if (!draggingItem) return;
 
+		// get bounds of game area and calculate new postions 
 		const gameRect = document.getElementById("game").getBoundingClientRect();
 		const x = e.clientX - gameRect.left - dragOffsetX;
 		let y = e.clientY - gameRect.top - dragOffsetY;
 
-		// 🔒 Prevent dragging above halfway (keeps below top conveyor)
+		// Prevent dragging above bottom conveyor
 		const clampTop = bottomConveyor.offsetTop - 40;
 		if (y < clampTop) y = clampTop;
 
+		// assign new drag positions
 		draggingItem.style.left = `${x}px`;
 		draggingItem.style.top = `${y}px`;
 	}
+
 
 	function endDrag() {
 		if (!draggingItem) return;
 
 		const item = draggingItem;
+		
+		// clear drag state and remove drop zone highlight
 		draggingItem = null;
 		pullLine.classList.remove("active");
 		delete item.dataset.dragging;
 		item.classList.remove("dragging");
 
-		// If game ended mid-drag, remove it immediately
+		// If game ended mid-drag, remove item 
 		if (gameOver) {
 			item.remove();
 			return;
@@ -266,6 +306,7 @@ window.onload = function() {
 		const itemRect = item.getBoundingClientRect();
 		const itemCenterY = itemRect.top + itemRect.height / 2;
 
+		// if item is below drop zone remove item and update score.
 		if (itemCenterY > lineRect.top) {
 			// Successful drop — remove and score
 			item.remove();
@@ -273,44 +314,54 @@ window.onload = function() {
 			scoreboard.textContent = "Score: " + score;
 			delete item.dataset.belt;
 		} else {
-			// Snap back to the bottom belt area if dropped too high
+			// move item back to the bottom conveyor if dropped too high
 			item.style.top = `${bottomConveyor.offsetTop + 20}px`;
 		}
 	}
 
-
+	// event listeners to smooth drag 
     document.addEventListener("mousemove", updateDrag);
     document.addEventListener("mouseup",   endDrag);
 
-    // === GAME CONTROL ===
+    // start game
     function startGame() {
+		// reset variables
         resetGame();
+		// start creating items on both conveyors
         spawnTopItem();
         spawnBottomItem();
+		// start scrolling conveyors
         requestAnimationFrame(animateConveyors);
     }
 
     function stopGame() {
+		// prevent multiple stops
         if (gameOver) return;
+		// set game over to true
         gameOver = true;
+		// stop creating items
         clearTimeout(topInterval);
         clearTimeout(bottomInterval);
+		// alert final score
         alert("Game Stopped! Final Score: " + score);
     }
 
     function resetGame() {
+		// stop creating items
 		clearTimeout(topInterval);
 		clearTimeout(bottomInterval);
 
-		// Cancel and remove everything
+		// Cancel animation and remove all items
 		document.querySelectorAll(".item").forEach(el => {
 			if (el.animFrameId) cancelAnimationFrame(el.animFrameId);
 			el.remove();
 		});
 
+		// clear conveyor elements
 		topConveyor.innerHTML = "";
 		bottomConveyor.innerHTML = "";
 
+		// reset variables
 		score = 0;
 		topSpeed = 2;
 		bottomSpeed = 2;
@@ -321,27 +372,35 @@ window.onload = function() {
 	}
 
     function spawnTopItem() {
+		// stop if game over
         if (gameOver) return;
+		// create new top conveyor item
         createTopItem();
+		// increase speed
         topSpeed += 0.08;
+		// schedule next item, increasing speed with minimum frequency of one every 0.2 seconds
         topInterval = setTimeout(spawnTopItem, Math.max(200, 1000 - topSpeed * 80));
     }
 
     function spawnBottomItem() {
-        if (gameOver) return;
-        createBottomItem();
+        // stop if game over
+		if (gameOver) return;
+        // create new bottom conveyor item
+		createBottomItem();
+		// increase speed
         bottomSpeed += 0.08;
+		// schedule next item, increasing speed with minimum frequency of one every 0.2 seconds
         bottomInterval = setTimeout(spawnBottomItem, Math.max(200, 1000 - bottomSpeed * 80));
     }
 
     function endGame(reason = "Game Over!") {
 		if (gameOver) return;
 		gameOver = true;
-
+		// stop creating items
 		clearTimeout(topInterval);
 		clearTimeout(bottomInterval);
 
-		// Cancel all animations immediately
+		// Cancel all animations 
 		document.querySelectorAll(".item").forEach(el => {
 			if (el.animFrameId) cancelAnimationFrame(el.animFrameId);
 		});
@@ -355,11 +414,13 @@ window.onload = function() {
 		// Remove all boxes
 		document.querySelectorAll(".item").forEach(el => el.remove());
 
+		// set deley for final score alert
 		setTimeout(() => {
 			alert(`${reason}\nFinal Score: ${score}`);
 		}, 10);
 	}
 
+	// add even listeners to buttons
     startBtn.addEventListener("click", startGame);
     stopBtn.addEventListener("click", stopGame);
     resetBtn.addEventListener("click", resetGame);
